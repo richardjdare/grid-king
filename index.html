@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	<title>Grid-King test</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="d:/projects/gridking/gridking.css">
+	<!--
+	     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+	-->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script defer src="d:/projects/gridking/jquery.gridking.js"></script>
+
+    </head>
+    <body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<div class="container">
+	    <div id="gk-grid-container" class="gk-grid-container gk-dashed" tabindex="-1">
+		<div class="gk-toolbar gk-col-toolbar" style="display:none">
+		    <div>
+			<div class="fa fa-arrows-alt gk-toolbar-item" draggable="true"></div>
+			<div class="fa fa-plus-circle gk-toolbar-item"></div>
+			<div class="fa fa-minus-circle gk-toolbar-item"></div>
+			<div class="fa fa-cog gk-toolbar-item"></div>
+			<div class="fa fa-trash-alt gk-toolbar-item"></div>
+			<div class="fa fa-plus-square gk-toolbar-item"></div>
+			<div class="gk-toolbar-text">Col</div>
+		    </div>
+		</div>
+		<div class="gk-toolbar gk-row-toolbar" style="display:none">
+		    <div>
+			<div class="fa fa-arrows-alt gk-toolbar-item" draggable="true"></div>
+			<div class="fa fa-cog gk-toolbar-item"></div>
+			<div class="fa fa-trash-alt gk-toolbar-item"></div>
+			<div class="fa fa-plus-square gk-toolbar-item"></div>
+			<div class="gk-toolbar-text">Row</div>
+		    </div>
+		</div>		
+		<div class="row" data-selectable="1">
+		    <div class="col-6" data-selectable="1">
+			<p>A col goes here</p>
+		    </div>
+		    <div class="col-6" data-selectable="1">
+			<p>Another col goes here</p>
+		    </div>
+		</div>
+		
+		<div class="row" data-selectable="1">
+		    <div class="col-6" data-selectable="1">
+			<p>A col goes here</p>
+		    </div>
+		    <div class="col-6" data-selectable="1">
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis purus consectetur, rhoncus felis id, molestie est. Curabitur nisl mi, cursus ac est sit amet, maximus hendrerit erat. Ut vehicula, ligula vel dignissim sodales, turpis velit imperdiet leo, quis posuere massa est quis elit. Etiam diam augue, congue eleifend odio vel, condimentum tincidunt turpis. Mauris sem felis, pellentesque at facilisis in, aliquam finibus est. Praesent in venenatis risus, non aliquet lectus. Curabitur convallis consequat varius. Integer tellus orci, sagittis nec mi eu, rutrum dictum tortor.</p>
+		    </div>
+		</div>
+		
+		<div class="row" data-selectable="1">
+		    <div class="col" data-selectable="1">
+			<p>Another one</p>
+		    </div>
+		</div>
+	    </div>
+	</div>
+	
+
+	<script>
+	 
+	 $(document).ready(function(){
+	     /*
+		$("[class*=col][data-selectable]").hover(
+		function(){
+		$(this).addClass("gk-hover");
+		},
+		function(){
+		$(this).removeClass("gk-hover");
+		});
+	      */
+	     $("[class*=col][data-selectable]").click(function(){
+		 deselect();
+		 onSelectElement(this);
+	     });
+	     
+	     
+	     $(".gk-grid-container").focusout(function(event){
+		 console.log("focusout");
+		 console.log(event.target);
+		 deselect();
+	     });
+	 });
+
+	 
+
+	 function onSelectElement(elem){
+	     $(elem).addClass("gk-selected")
+		    .addClass("gk-selected-col")
+		    .parent(".row")
+		    .addClass("gk-selected-row");
+	     attachColToolBar(elem);
+	     attachRowToolBar($(elem).parent());
+	 }
+
+	 function deselect(){
+	     $(".gk-grid-container div").removeClass("gk-selected")
+					.removeClass("gk-selected-col")
+					.removeClass("gk-selected-row");
+	     $(".gk-col-toolbar").hide();
+	     $(".gk-row-toolbar").hide();
+	 }
+
+	 function attachColToolBar(element){
+	     var p = $(element).position();
+	     var h = $(".gk-col-toolbar").height();
+	     $(".gk-col-toolbar").css("top",p.top-h)
+				 .css("left",p.left - 1)
+				 .show();
+	 }
+
+	 function attachRowToolBar(element){
+	     var p = $(element).position();
+	     var ew = $(element).outerWidth();
+	     var eh = $(element).height();
+	     var h = $(".gk-col-toolbar").height();
+	     $(".gk-row-toolbar").css("top", p.top + eh + 1)
+				 .css("left",p.left + (ew - $(".gk-row-toolbar").outerWidth()) - 11)
+				 .show();
+	 }
+	 
+	</script>
+    </body>
+</html>
+  

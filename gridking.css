@@ -1,0 +1,48 @@
+.gk-dashed *[data-selectable]:not(.gk-selected):not(.gk-selected-row) {
+    outline: 1px dashed rgba(170,170,170,0.7);
+    outline-offset: -2px;
+}
+
+.gk-hover{
+    outline: 1px solid #3b97e3 !important;
+}
+
+[class*=col][data-selectable]:not(.gk-selected):hover{
+    outline: 1px solid #3b97e3 !important;
+}
+
+.gk-selected-col{
+    outline: 3px solid #3b97e3 !important;
+    outline-offset: -2px;
+}
+
+.gk-selected-row{
+    outline: 3px solid #e33b3b !important;
+    outline-offset: 1px;
+}
+
+.gk-toolbar{
+    position: absolute;
+    color: white;
+    padding: 0px 4px;
+    z-index: 100;
+}
+
+.gk-col-toolbar{
+    background-color: #3b97e3;
+}
+
+.gk-row-toolbar{
+    background-color: #e33b3b;
+}
+.gk-toolbar-item {
+    /*padding: 5px 7px;*/
+    margin:2px 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.gk-toolbar-text{
+    font-weight:bold;
+    display:inline;
+}
