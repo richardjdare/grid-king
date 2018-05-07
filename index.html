@@ -22,7 +22,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	<div class="container">
-	    <div id="gk-grid-container" class="gk-grid-container gk-dashed" tabindex="-1">
+	  <div id="grid-container">
+	    <!-- 
 		<div class="gk-toolbar gk-col-toolbar" style="display:none">
 		    <div>
 			<div class="fa fa-arrows-alt gk-toolbar-item" draggable="true"></div>
@@ -43,26 +44,30 @@
 			<div class="gk-toolbar-text">Row</div>
 		    </div>
 		</div>		
-		<div class="row" data-selectable="1">
-		    <div class="col-6" data-selectable="1">
+-->
+		<div class="row" >
+		    <div class="col-6" >
 			<p>A col goes here</p>
 		    </div>
-		    <div class="col-6" data-selectable="1">
+		    <div class="col-6" >
 			<p>Another col goes here</p>
 		    </div>
 		</div>
 		
-		<div class="row" data-selectable="1">
-		    <div class="col-6" data-selectable="1">
+		<div class="row" >
+		    <div class="col-6" >
 			<p>A col goes here</p>
 		    </div>
-		    <div class="col-6" data-selectable="1">
+		    <div class="col-3" >
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis purus consectetur, rhoncus felis id, molestie est. Curabitur nisl mi, cursus ac est sit amet, maximus hendrerit erat. Ut vehicula, ligula vel dignissim sodales, turpis velit imperdiet leo, quis posuere massa est quis elit. Etiam diam augue, congue eleifend odio vel, condimentum tincidunt turpis. Mauris sem felis, pellentesque at facilisis in, aliquam finibus est. Praesent in venenatis risus, non aliquet lectus. Curabitur convallis consequat varius. Integer tellus orci, sagittis nec mi eu, rutrum dictum tortor.</p>
+		    </div>
+		    <div class="col-3">
+		      another col
 		    </div>
 		</div>
 		
-		<div class="row" data-selectable="1">
-		    <div class="col" data-selectable="1">
+		<div class="row" >
+		    <div class="col" >
 			<p>Another one</p>
 		    </div>
 		</div>
@@ -73,6 +78,8 @@
 	<script>
 	 
 	 $(document).ready(function(){
+	     $("#grid-container").gridKing();
+	     
 	     /*
 		$("[class*=col][data-selectable]").hover(
 		function(){
@@ -81,25 +88,23 @@
 		function(){
 		$(this).removeClass("gk-hover");
 		});
-	      */
+	    
 	     $("[class*=col][data-selectable]").click(function(){
 		 deselect();
-		 onSelectElement(this);
+		 selectElement(this);
 	     });
 	     
 	     
 	     $(".gk-grid-container").focusout(function(event){
-		 console.log("focusout");
-		 console.log(event.target);
 		 deselect();
 	     });
+  */	 
 	 });
 
-	 
+	 /*
 
-	 function onSelectElement(elem){
-	     $(elem).addClass("gk-selected")
-		    .addClass("gk-selected-col")
+	 function selectElement(elem){
+	     $(elem).addClass("gk-selected gk-selected-col")
 		    .parent(".row")
 		    .addClass("gk-selected-row");
 	     attachColToolBar(elem);
@@ -107,9 +112,7 @@
 	 }
 
 	 function deselect(){
-	     $(".gk-grid-container div").removeClass("gk-selected")
-					.removeClass("gk-selected-col")
-					.removeClass("gk-selected-row");
+	     $(".gk-grid-container div").removeClass("gk-selected gk-selected-row gk-selected-col");
 	     $(".gk-col-toolbar").hide();
 	     $(".gk-row-toolbar").hide();
 	 }
@@ -130,8 +133,7 @@
 	     $(".gk-row-toolbar").css("top", p.top + eh + 1)
 				 .css("left",p.left + (ew - $(".gk-row-toolbar").outerWidth()) - 11)
 				 .show();
-	 }
-	 
+	 }*/
 	</script>
     </body>
 </html>

@@ -35,6 +35,9 @@
 .gk-row-toolbar{
     background-color: #e33b3b;
 }
+.gk-toolbar-item-container{
+    display:inline;
+}
 .gk-toolbar-item {
     /*padding: 5px 7px;*/
     margin:2px 4px;
