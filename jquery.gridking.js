@@ -38,45 +38,45 @@
 		.prepend('<div class="gk-toolbar gk-row-toolbar" style="display:none"></div>');
 	    
 	    // col toolbar buttons
-	    gk.addToolbarButton(".gk-col-toolbar", "fa fa-arrows-alt", function(){
+	    gk.addToolbarButton(".gk-col-toolbar", "fa fa-arrows-alt", "Move" ,function(){
 		console.log("drag col");
 	    });
 
-	    gk.addToolbarButton(".gk-col-toolbar", "fa fa-minus-circle", function(){
+	    gk.addToolbarButton(".gk-col-toolbar", "fa fa-minus-circle", "Make column narrower", function(){
 		console.log("col smaller");	
 	    });
 
-	    gk.addToolbarButton(".gk-col-toolbar","fa fa-plus-circle", function(){
+	    gk.addToolbarButton(".gk-col-toolbar","fa fa-plus-circle", "Make column wider" ,function(){
 		console.log("col bigger");
 		gk.increaseColSize($(".gk-selected.gk-selected-col")[0]);
 	    });
 
-	    gk.addToolbarButton(".gk-col-toolbar","fa fa-cog", function(){
+	    gk.addToolbarButton(".gk-col-toolbar","fa fa-cog", "Options", function(){
 		console.log("col options");
 	    });
 
-	    gk.addToolbarButton(".gk-col-toolbar","fa fa-trash-alt", function(){
+	    gk.addToolbarButton(".gk-col-toolbar","fa fa-trash-alt", "Delete Column", function(){
 		console.log("col delete");
 	    });
 
-	    gk.addToolbarButton(".gk-col-toolbar","fa fa-plus-square",function(){
+	    gk.addToolbarButton(".gk-col-toolbar","fa fa-plus-square", "Add row", function(){
 		console.log("col add row");
 	    });
 
 	    // row toolbar buttons
-	    gk.addToolbarButton(".gk-row-toolbar","fa fa-arrows-alt",function(){
+	    gk.addToolbarButton(".gk-row-toolbar","fa fa-arrows-alt", "Move", function(){
 		console.log("drag row");
 	    });
 	    
-	    gk.addToolbarButton(".gk-row-toolbar","fa fa-cog",function(){
+	    gk.addToolbarButton(".gk-row-toolbar","fa fa-cog", "Options", function(){
 		console.log("row options");
 	    });
 	    
-	    gk.addToolbarButton(".gk-row-toolbar","fa fa-trash-alt",function(){
+	    gk.addToolbarButton(".gk-row-toolbar","fa fa-trash-alt", "Delete Row", function(){
 		console.log("row delete");
 	    });
 
-	    gk.addToolbarButton(".gk-row-toolbar","fa fa-plus-square",function(){
+	    gk.addToolbarButton(".gk-row-toolbar","fa fa-plus-square","Add Column" ,function(){
 		console.log("row add col");
 	    });
 	    	    
@@ -97,10 +97,11 @@
 	    $(".gk-toolbar").remove();
 	};
 
-	gk.addToolbarButton = function(toolbar, icon, onClick){
+	gk.addToolbarButton = function(toolbar, icon, tooltip, onClick){
 	  $('<div class="gk-toolbar-item"></div>')
 		.addClass(icon)
 		.appendTo($('<div class="gk-toolbar-item-container"></div>')
+			  .attr("title",tooltip)
 			  .click(onClick)
 			  .appendTo(toolbar));
 	};
@@ -133,7 +134,7 @@
 	    var eh = $(element).height();
 	    var h = $(".gk-col-toolbar").height();
 	    $(".gk-row-toolbar").css("top", p.top + eh + 1)
-		.css("left",p.left + (ew - $(".gk-row-toolbar").outerWidth()) - 10)
+		.css("left",p.left + (ew - $(".gk-row-toolbar").outerWidth()) - 11)
 		.show();
 	};
 
@@ -143,8 +144,14 @@
 		var classParts = colClass.match(/col-?(xs|sm|md|lg|\b)-?(\d+|\b)/);
 		var numCols = gk.clamp(parseInt(classParts[2]) + 1,1,12);
 		var size = classParts[1] == "" ? "" : classParts[1] + "-";
-		var newClass="col-"+size+numCols;
-		console.log("new class: "+newClass);
+		// for now, leave bs4 cols with no col number alone.
+		if(numCols == NaN || numCols == undefined){
+		    // do nothing to this col
+		}
+		else{
+		    var newClass="col-"+size+numCols;
+		    console.log("new class: "+newClass);
+		}
 	    }
 	};
 
