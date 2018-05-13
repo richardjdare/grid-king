@@ -31,6 +31,16 @@
 		.removeAttribute("tabindex");
 	};
 
+	// add a button to one of the toolbars
+	gk.addToolbarButton = function(toolbar, icon, tooltip, onClick){
+	    $('<div class="gk-toolbar-item"></div>')
+		.addClass(icon)
+		.appendTo($('<div class="gk-toolbar-item-container"></div>')
+			  .attr("title",tooltip)
+			  .click(onClick)
+			  .appendTo(toolbar));
+	};
+	
 	// create the toolbars and other gui elements
 	gk.initGUI = function(element){
 	    // create toolbars
@@ -95,15 +105,6 @@
 	// remove the toolbars and other gui elements
 	gk.removeGUI = function(){
 	    $(".gk-toolbar").remove();
-	};
-
-	gk.addToolbarButton = function(toolbar, icon, tooltip, onClick){
-	  $('<div class="gk-toolbar-item"></div>')
-		.addClass(icon)
-		.appendTo($('<div class="gk-toolbar-item-container"></div>')
-			  .attr("title",tooltip)
-			  .click(onClick)
-			  .appendTo(toolbar));
 	};
 
 	gk.selectElement = function(element){
@@ -175,7 +176,17 @@
     };
     
     $.gridKing.defaultOptions = {
-	debug : 0
+	debug : 0,
+	rowLayouts : [
+            [12],
+            [6, 6],
+            [4, 4, 4],
+            [3, 3, 3, 3],
+            [2, 2, 2, 2, 2, 2],
+            [2, 8, 2],
+            [4, 8],
+            [8, 4]
+        ],
     };
     
     $.fn.gridKing = function(options){
